@@ -1,10 +1,13 @@
 <script setup>
 import { ref } from 'vue';
 
-let usuarios = true;
+let usuarios = ref(true);
 let usuario1 = ref('');
 let usuario2 = ref('');
 
+const quitar = () => {
+  usuarios.value = false;
+}
 </script>
 
 <template>
@@ -19,7 +22,7 @@ let usuario2 = ref('');
         <button @click="$emit('jugar', {
             user1: usuario1,
             user2: usuario2
-        })">JUGAR!</button>
+        }), quitar()">JUGAR!</button>
       </div>
     </div>
 </template>
