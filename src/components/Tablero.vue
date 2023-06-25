@@ -9,6 +9,13 @@ let juego = true;
 let ganador = ref('');
 let casillas = 0;
 
+const emit = defineEmits(['ganador']);
+
+const enviarGanador = value => {
+  emit('ganador', value);
+}
+
+
 const asignarLetra = (i) => {
   if (turno === 'X' && juego && casillas != 9){
     posiciones.value[i] = 'X';
@@ -41,12 +48,15 @@ const mostrarGanador = () => {
     console.log('Usuario1 ha ganado')
   else if (ganador.value === 'O')
     console.log('Gano el otro')
+  enviarGanador(ganador.value);  
   juego = false;    
 }
 
 const reiniciarJuego = () => {
-  for (let i = 0; i <= 8; i++){
+  if (!juego) {
+    for (let i = 0; i <= 8; i++){
     posiciones.value[i] = '-';
+    };
   }
   juego = true;
 }
@@ -55,10 +65,10 @@ const reiniciarJuego = () => {
 <template>
     <div class="tablero">
       <div class="boton">
-        <button :style="presionar" @click.prevent="asignarLetra(0)">{{ posiciones[0] }}</button>
+        <button @click.prevent="asignarLetra(0)">{{ posiciones[0] }}</button>
       </div>
       <div class="boton">
-        <button :style="presionar" @click.prevent="asignarLetra(1)">{{ posiciones[1] }}</button>
+        <button @click.prevent="asignarLetra(1)">{{ posiciones[1] }}</button>
       </div>
       <div class="boton">
         <button @click.prevent="asignarLetra(2)">{{ posiciones[2] }}</button>
@@ -115,10 +125,13 @@ const reiniciarJuego = () => {
 .reiniciar {
   background-color: bisque;
   display: flex;
-  height: 100px;
-  width: 50%;
+  height: min-content;
+  width: min-content;
   justify-content: center;
   align-items: center;
+  margin-top: 8.4em;
+  margin-left: 2em;
+  margin-right: 2em;
 }
 
 .reiniciar button {
