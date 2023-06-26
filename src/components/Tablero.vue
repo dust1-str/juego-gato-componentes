@@ -59,6 +59,7 @@ const reiniciarJuego = () => {
     };
   }
   juego = true;
+  turno = 'X';
 }
 </script>
 

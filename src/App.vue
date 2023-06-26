@@ -2,8 +2,20 @@
   <Usuarios @jugar="user"/>
   <div class="historial">
     <Tablero @ganador="mostrarGanador"/>
-    <Resultados :ganadores="{
-      g1: ganadores[0]
+    <Resultados :jugadores="{
+    user1: usuario1,
+    user2: usuario2
+  }" :ganadores="{
+      g1: ganadores[0],
+      g2: ganadores[1],
+      g3: ganadores[2],
+      g4: ganadores[3],
+      g5: ganadores[4],
+      g6: ganadores[5],
+      g7: ganadores[6],
+      g8: ganadores[7],
+      g9: ganadores[8],
+      g10: ganadores[9]
     }"/>
   </div>
   <Turnos :users="{
@@ -21,8 +33,10 @@ import Resultados from './components/Resultados.vue';
 
 let usuario1 = ref('');
 let usuario2 = ref('');
+let i = 0;
+let j = 1;
 
-let ganadores = ref({});
+let ganadores = ref(['','','','','','','','','','']);
 
 //Asigna los nombres de los usuarios cuando se presiona 'Jugar'
 const user = x =>{
@@ -35,8 +49,15 @@ const user = x =>{
 }
 
 const mostrarGanador = ganador => {
-  if (ganador === 'X')
-    ganadores.value[0] = usuario1.value;
+  if (ganador === 'X'){
+    ganadores.value.splice(i,1,usuario1.value);
+    i+=2;
+  }
+  else if (ganador === 'O'){
+    ganadores.value.splice(j,1,usuario2.value);
+    j+=2; 
+  }    
+  console.log(ganadores.value[0]);
 }
 </script>
 
