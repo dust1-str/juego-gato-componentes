@@ -22,6 +22,10 @@
     user1: usuario1,
     user2: usuario2
   }"/>
+  <Mensaje :ganador="winner" :jugadores="{
+    user1: usuario1,
+    user2: usuario2
+  }"/>
 </template>
 
 <script setup>
@@ -30,11 +34,13 @@ import Turnos from './components/Turnos.vue';
 import Usuarios from './components/Usuarios.vue';
 import Tablero from './components/Tablero.vue';
 import Resultados from './components/Resultados.vue';
+import Mensaje from './components/Mensaje.vue';
 
 let usuario1 = ref('');
 let usuario2 = ref('');
 let i = 0;
 let j = 1;
+let winner = ref(0);
 
 let ganadores = ref(['','','','','','','','','','']);
 
@@ -52,12 +58,22 @@ const mostrarGanador = ganador => {
   if (ganador === 'X'){
     ganadores.value.splice(i,1,usuario1.value);
     i+=2;
+    console.log(i);
   }
   else if (ganador === 'O'){
     ganadores.value.splice(j,1,usuario2.value);
-    j+=2; 
+    j+=2;
+    console.log(j); 
   }    
-  console.log(ganadores.value[0]);
+  signWinner();
+}
+
+const signWinner = () => {
+  if (i == 10){
+    winner.value = 9;
+  } else if (j == 11){
+    winner.value = 10;
+  }
 }
 </script>
 
